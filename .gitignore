@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+logs/
+
+# Models
+*.h5
+*.model
+
+# Other
+import requests.py
