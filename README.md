@@ -1,67 +1,67 @@
-# Gomoku AI with Face Recognition
+# 오목 AI와 얼굴 인식
 
-This project is a Gomoku (Five in a Row) AI that uses a Dueling Double Deep Q-Network (DDDQN) with Prioritized Experience Replay (PER). It includes a Flask server to provide an API for the AI and for face recognition login.
+이 프로젝트는 우선순위 경험 재현(PER)을 사용하는 Dueling Double Deep Q-Network(DDDQN) 기반의 오목 AI입니다. AI 및 얼굴 인식 로그인을 위한 API를 제공하는 Flask 서버를 포함합니다.
 
-## Project Structure
+## 프로젝트 구조
 
-- `ai_server.py`: A Flask server that provides REST APIs for Gomoku predictions and face recognition.
-- `train_model/`: Directory containing the code for training the AI model.
-  - `train.py`: The main script to train the Gomoku AI agent.
-  - `agent.py`: Implements the DDDQN with PER agent.
-  - `gomoku_env.py`: Defines the Gomoku game environment.
-  - `model.py`: Defines the Dueling DQN neural network architecture.
-  - `replay_buffer.py`: Implements the Prioritized Replay Buffer.
-- `model/best.h5`: The trained model used by the server.
-- `.gitignore`: Specifies which files and directories to ignore in version control.
+- `ai_server.py`: 오목 예측 및 얼굴 인식을 위한 REST API를 제공하는 Flask 서버입니다.
+- `train_model/`: AI 모델 학습을 위한 코드가 포함된 디렉터리입니다.
+  - `train.py`: 오목 AI 에이전트를 학습시키는 메인 스크립트입니다.
+  - `agent.py`: PER을 사용하는 DDDQN 에이전트를 구현합니다.
+  - `gomoku_env.py`: 오목 게임 환경을 정의합니다.
+  - `model.py`: Dueling DQN 신경망 아키텍처를 정의합니다.
+  - `replay_buffer.py`: 우선순위 재현 버퍼를 구현합니다.
+- `model/best.h5`: 서버에서 사용하는 학습된 모델입니다.
+- `.gitignore`: 버전 관리에서 무시할 파일 및 디렉터리를 지정합니다.
 
-## Installation
+## 설치
 
-First, clone the repository. Then, install the required Python libraries.
+먼저, 저장소를 복제합니다. 그런 다음 필요한 Python 라이브러리를 설치합니다.
 
 ```bash
 pip install flask flask_cors numpy tensorflow deepface pillow
 ```
 
-## Usage
+## 사용법
 
-### Running the AI Server
+### AI 서버 실행
 
-To start the AI server, run the following command:
+AI 서버를 시작하려면 다음 명령을 실행합니다.
 
 ```bash
 python ai_server.py
 ```
 
-The server will start on `http://0.0.0.0:5000`.
+서버는 `http://0.0.0.0:5000`에서 시작됩니다.
 
-### Training the Model
+### 모델 학습
 
-To train a new model, navigate to the `train_model` directory and run the `train.py` script:
+새 모델을 학습시키려면 `train_model` 디렉터리로 이동하여 `train.py` 스크립트를 실행합니다.
 
 ```bash
 cd train_model
 python train.py
 ```
 
-The trained models will be saved in the `train_model/models` directory.
+학습된 모델은 `train_model/models` 디렉터리에 저장됩니다.
 
-## API Endpoints
+## API 엔드포인트
 
-The `ai_server.py` provides the following endpoints:
+`ai_server.py`는 다음 엔드포인트를 제공합니다.
 
-### Gomoku
+### 오목
 
 - **POST /predict**
-  - Takes a JSON payload with the current board state and the AI's player number.
-  - Returns the AI's next move.
-  - **Request Body:**
+  - 현재 바둑판 상태와 AI의 플레이어 번호가 포함된 JSON 페이로드를 받습니다.
+  - AI의 다음 수를 반환합니다.
+  - **요청 본문:**
     ```json
     {
       "board": [[0, 0, ...], ...],
       "aiPlayer": 1
     }
     ```
-  - **Success Response:**
+  - **성공 응답:**
     ```json
     {
       "x": 7,
@@ -69,17 +69,17 @@ The `ai_server.py` provides the following endpoints:
     }
     ```
 
-### Face Recognition
+### 얼굴 인식
 
 - **POST /encode-face**
-  - Takes an image data URL and returns a facial encoding.
-  - **Request Body:**
+  - 이미지 데이터 URL을 받아 얼굴 인코딩을 반환합니다.
+  - **요청 본문:**
     ```json
     {
       "imageDataUrl": "data:image/jpeg;base64,..."
     }
     ```
-  - **Success Response:**
+  - **성공 응답:**
     ```json
     {
       "success": true,
@@ -88,15 +88,15 @@ The `ai_server.py` provides the following endpoints:
     ```
 
 - **POST /verify-face**
-  - Compares a known facial encoding with a new image to verify identity.
-  - **Request Body:**
+  - 알려진 얼굴 인코딩을 새 이미지와 비교하여 신원을 확인합니다.
+  - **요청 본문:**
     ```json
     {
       "knownEncoding": [...],
       "targetImageDataUrl": "data:image/jpeg;base64,..."
     }
     ```
-  - **Success Response:**
+  - **성공 응답:**
     ```json
     {
       "verified": true,
