@@ -2,6 +2,10 @@
 
 이 프로젝트는 우선순위 경험 재현(PER)을 사용하는 Dueling Double Deep Q-Network(DDDQN) 기반의 오목 AI입니다. AI 및 얼굴 인식 로그인을 위한 API를 제공하는 Flask 서버를 포함합니다.
 
+> **참고:** 웹 기반 오목 게임 서비스와 사용자 인터페이스는 별도의 [Gomoku 프로젝트](https://github.com/haejun1213/Gomoku)에서 구현되어 있습니다.  
+> 이 저장소는 AI 로직과 얼굴 인식 API 제공에 집중합니다.
+
+
 ## 프로젝트 구조
 
 - `ai_server.py`: 오목 예측 및 얼굴 인식을 위한 REST API를 제공하는 Flask 서버입니다.
